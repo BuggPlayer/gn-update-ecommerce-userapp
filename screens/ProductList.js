@@ -11,10 +11,10 @@ import {Color} from '../../assets/constant/Constant';
 const ProductList = props => {
   console.log('prp', props.item);
   return (
-    <TouchableOpacity onPress={() => props.navigation.navigate('Details')}>
+    <View>
       <View
         style={{
-          backgroundColor: 'pink',
+          backgroundColor: '#c5ed8a',
           // height: 100,
           paddingHorizontal: wp(4),
           borderRadius: 10,
@@ -63,24 +63,50 @@ const ProductList = props => {
             </View> */}
 
             <View style={{flexDirection: 'row', marginVertical: hp(1)}}>
-              <Image
-                style={{height: hp(10), width: wp('20')}}
-                source={{uri: props.item.image}}
-              />
+              <TouchableOpacity
+                onPress={() => props.navigation.navigate('Details')}>
+                <Image
+                  style={{height: hp(12), width: wp('20')}}
+                  source={{uri: props.item.image}}
+                />
+              </TouchableOpacity>
               <View style={{marginHorizontal: wp(2), marginVertical: hp(1)}}>
-                <Text style={{fontSize: hp(2), color: 'white'}}>
+                <Text style={{fontSize: hp(2), color: 'black'}}>
                   {props.item.name}
                 </Text>
-                <Text style={{fontSize: hp(2), color: 'white'}}>New Dehli</Text>
+
+                <Text style={{fontSize: hp(2), color: 'black'}}>
+                  {props.item.weight}
+                </Text>
+
+                <View style={{flexDirection: 'row'}}>
+                  <Text
+                    style={{
+                      fontSize: hp(2),
+                      color: '#000',
+                      fontWeight: 'bold',
+                    }}>
+                    ₹ {props.item.price}
+                  </Text>
+
+                  <Text
+                    style={{
+                      textDecorationLine: 'line-through',
+                      marginHorizontal: wp(1),
+                    }}>
+                    ₹ {props.item.mrp}
+                  </Text>
+                </View>
+                <Text style={{fontSize: hp(2), color: 'black'}}>
+                  {props.item.brand}
+                </Text>
               </View>
             </View>
           </View>
           <View
             style={{
               // backgroundColor: 'pink',
-              justifyContent: 'space-between',
-
-              paddingVertical: wp(2),
+              justifyContent: 'space-around',
               alignItems: 'flex-end',
               // height: 100,
             }}>
@@ -88,13 +114,24 @@ const ProductList = props => {
               style={{}}
               name="md-bookmark-outline"
               size={30}
-              color={'white'}
+              color={'black'}
             />
-            <Text style={{fontSize: hp(1.8), color: 'white'}}>3 Day Ago</Text>
+            <View
+              style={{
+                borderColor: 'black',
+                borderRadius: 100,
+                backgroundColor: 'white',
+                height: hp(4),
+                width: hp(4),
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              <Text style={{fontSize: hp(2.5), color: 'black'}}>+</Text>
+            </View>
           </View>
         </View>
       </View>
-    </TouchableOpacity>
+    </View>
   );
 };
 
