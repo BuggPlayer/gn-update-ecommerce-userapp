@@ -6,6 +6,15 @@ export const CATEGORY_LOADING = 'CATEGORY_LOADING';
 export const GET_CATEGORY = 'GET_CATEGORY';
 export const GET_CATEGORY_FAILED = 'GET_CATEGORY_FAILED';
 
+
+
+export const ADD_TO_CART = 'ADD_TO_CART';
+export const REMOVE_CART = 'REMOVE_CART';
+export const SUBTRACT_QTY = 'SUBTRACT_QTY';
+export const ADD_QTY = 'ADD_QTY';
+
+
+
 // export const LOGIN = 'LOGIN';
 // export const AUTH_LOADING = 'AUTH_LOADING';
 // export const AUTH_ERRORS = 'AUTH_ERRORS';

@@ -18,63 +18,59 @@ import {useDispatch, useSelector} from 'react-redux';
 
 import OffPercent from './OffPercent';
 import PButton from './UI/PButton';
+import {addToCart, subtractQty, addQty} from '../store/actions/cartAction';
 
 /// product  cart action
 import * as productaction from '../store/actions/ProductAction';
+import { Color } from '../assets/Color';
 const HorizontalCompo = props => {
-  const Qty = useSelector(state => state.product.addedItems);
+  const Qty = useSelector(state => state.products.addedItems);
   console.log('qty', Qty);
 
   const [add, setadd] = React.useState(false);
   const [modalVisible, setModalVisible] = React.useState(false);
   const [quantity, setQuantity] = React.useState(0);
-  const [isViable, setViable] = React.useState(false);
+  const [isViable, setisViable] = React.useState(false);
 
   const dispatch = useDispatch();
-
-  const addtocart = id => {
-    console.log(id);
-    dispatch({
-      type: 'ADD_TO_CART',
-      id: id,
-    });
-
-    dispatch({
-      type: 'IF_ADDED',
-      id: id,
-    });
-    setViable(true);
-    setQuantity(props.items.quantity);
-  };
   return (
-    <View style={{padding: 10}}>
+    <View
+      style={{
+     
+        marginVertical: hp(1),
+        marginHorizontal: wp(2),
+      }}>
       <View
         style={{
           // padding: 10,
+          backgroundColor:Color.cardColor,
           paddingHorizontal: wp(3),
           paddingVertical: hp(2),
           width: wp('55%'),
+          // height:hp(47),
           borderRadius: 5,
           // shadowColor: '#000',
-
-          elevation: 4,
+          // elevation: 4,
         }}>
         <TouchableOpacity
-          onPress={() =>
-            props.navigation.navigate('Details', {
-              items: props.items,
-              quantity: quantity,
-            })
-          }>
+          // onPress={() =>
+          //   props.navigation.navigate('Details', {
+          //     items: props.items,
+          //     quantity: quantity,
+          //   })
+          // }
+          >
           <Image
             source={{
               uri: props.items.image,
             }}
             style={{
-              height: hp('22%'),
+              height: hp('20%'),
               //width: wp("40%"),
               borderRadius: hp('2%'),
               position: 'relative',
+              resizeMode:"stretch",
+              // backgroundColor:"green"
             }}
           />
           <OffPercent
@@ -99,12 +95,15 @@ const HorizontalCompo = props => {
               paddingHorizontal: wp(3),
               paddingVertical: hp(0.5),
             }}>
-           {props.items.brand}
+            {props.items.brand}
           </Text>
-          <Text style={{ fontSize: hp(2), fontWeight: 'bold', textAlign: 'center'}}>
-            {props.items.title}
+          <Text
+            style={{fontSize: hp(2), fontWeight: 'bold', }}>
+            {props.items.name}
           </Text>
-          <View style={{flexDirection: 'row', marginVertical:hp(1)}}>
+
+
+          <View style={{flexDirection: 'row', marginVertical: hp(.5)}}>
             <Text style={{fontSize: 18, color: '#000', fontWeight: 'bold'}}>
               ₹ {props.items.price}
             </Text>
@@ -115,15 +114,15 @@ const HorizontalCompo = props => {
 
           <View
             style={{
-              marginHorizontal: wp('1%'),
-              flexDirection: 'row',
-              //  margin: hp("1%"),
+              // marginHorizontal: wp('1%'),
+              // flexDirection: 'row',
+              // //  margin: hp("1%"),
 
-              // backgroundColor: '#FFF',
-              width: wp('22%'),
-              borderRadius: hp('1%'),
-              paddingVertical: hp('.5%'),
-              paddingHorizontal: wp('1%'),
+              // // backgroundColor: '#FFF',
+              // width: wp('22%'),
+              // borderRadius: hp('1%'),
+              // paddingVertical: hp('.5%'),
+              // paddingHorizontal: wp('1%'),
             }}>
             <TouchableOpacity
               style={{
@@ -157,8 +156,12 @@ const HorizontalCompo = props => {
             <View style={{marginTop: hp('3%')}}>
               <Button
                 title="ADD"
+                color={Color.buttonColor}
                 onPress={
-                  () => addtocart(props.items.id)
+                  () => {
+                    setisViable(pre => !pre);
+                    dispatch(addToCart(props.items.id));
+                  }
                   //setQuantity(props.items.quantity)
                 }
               />
@@ -171,43 +174,37 @@ const HorizontalCompo = props => {
           )} */}
 
           {Qty.filter(items => items.id === props.items.id).length > 0 && (
-            <View style={{flex: 1, flexDirection: 'row'}}>
+            <View style={{flexDirection: 'row'}}>
               <PButton
                 onpress={() => {
-                  dispatch(productaction.subtractQty(props.items.id));
+                  dispatch(addQty(props.items.id));
                   setQuantity(props.items.quantity);
-                  if (quantity === 1) {
-                    setViable(false);
-                  }
+                  // quantity;
                 }}>
-                -
+                +
               </PButton>
               <View
                 style={{
-                  flex: 1,
+                  backgroundColor: 'green',
+                  marginHorizontal: hp(1),
+
                   alignItems: 'center',
-                  borderRadius: hp('1%'),
-                  margin: hp('1%'),
-                  shadowColor: '#000',
-                  shadowOffset: {
-                    width: 0,
-                    height: 1,
-                  },
-                  shadowOpacity: 0.18,
-                  shadowRadius: 1.0,
-                  elevation: 1,
+                  justifyContent: 'center',
+                  width: hp(4),
+                  height: hp(4),
+                  borderRadius: hp('50%'),
                 }}>
-                <Text style={{alignSelf: 'center', fontSize: 20}}>
-                  {quantity}
-                </Text>
+                <Text style={{fontSize: hp('2.5%')}}>{quantity}</Text>
               </View>
               <PButton
                 onpress={() => {
-                  dispatch(productaction.addQty(props.items.id));
+                  dispatch(subtractQty(props.items.id));
                   setQuantity(props.items.quantity);
-                  quantity;
+                  if (quantity === 1) {
+                    setisViable(false);
+                  }
                 }}>
-                +
+                -
               </PButton>
             </View>
           )}

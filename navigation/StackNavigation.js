@@ -14,6 +14,7 @@ import MyCart from '../screens/MyCart';
 import CheckOutScreen from '../screens/CheckOutScreen';
 import OrderDetails from '../components/OrderDetails';
 import ProductList from '../screens/ProductList';
+import ScheduleScreen from '../screens/ScheduleScreen';
 
 const Stack = createStackNavigator();
 
@@ -35,12 +36,14 @@ const Mystack = () => {
       <Stack.Screen name="Cart" component={MyCart} />
       <Stack.Screen name="Order" component={MyOrder} />
       <Stack.Screen name="Subcat" component={SubcategorieScreen} />
-      {/* <Stack.Screen name="Adress" component={GoogleMap} /> */}
+      <Stack.Screen name="GoogleMap" component={GoogleMap} />
       <Stack.Screen name="Details" component={ProductDetails} />
       <Stack.Screen name="All" component={Allproducts} />
       <Stack.Screen name="Checkout" component={CheckOutScreen} />
       <Stack.Screen name="OrderDetail" component={OrderDetails} />
       <Stack.Screen name="ProductList" component={ProductList} />
+      <Stack.Screen name="Schedulescreen" component={ScheduleScreen} />
+      
     </Stack.Navigator>
   );
 };

@@ -4,18 +4,27 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {AntDesign} from '../../Constant/Icons';
 
+import Bellicon from 'react-native-vector-icons/Ionicons';
+
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 import {useSelector} from 'react-redux';
+import {Color} from '../../assets/Color';
 
 const Header = ({navigation, title}) => {
-  const Cart = useSelector((state) => state.product.addedItems);
+  const Cart = useSelector(state => state.products.addedItems);
   const [show, setShow] = React.useState(false);
   return (
     <View
       style={{
         flexDirection: 'row',
         justifyContent: 'space-between',
-        padding: 20,
-        marginTop: 25,
+        backgroundColor: Color.headerColor,
+        paddingVertical: hp(1.6),
+        paddingHorizontal: wp(3),
+        alignItems: 'center',
       }}>
       <TouchableOpacity style={{}} onPress={() => navigation.toggleDrawer()}>
         <Icon name="md-menu" size={25} color="black" />
@@ -24,16 +33,17 @@ const Header = ({navigation, title}) => {
       <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
         <View style={{flexDirection: 'row'}}>
           <TouchableOpacity style={{marginRight: 10, position: 'relative'}}>
-            <MaterialIcons name="alarm-note" color={'black'} size={30} />
+            {/* <MaterialIcons name="alarm-note" color={'black'} size={30} /> */}
+            <Bellicon name="notifications" size={26} />
           </TouchableOpacity>
           <Text
             style={{
               fontSize: 11,
               position: 'absolute',
-              left: 7,
+              left: 14,
               width: 15,
               height: 15,
-              marginTop: 20,
+              marginTop: -5,
               backgroundColor: 'orange',
               borderRadius: 100,
               textAlign: 'center',
@@ -65,12 +75,17 @@ const Header = ({navigation, title}) => {
           <TouchableOpacity
             onPress={() => navigation.navigate('Cart')}
             style={{position: 'relative'}}>
-            <AntDesign name="shoppingcart" color={'black'} size={26} />
+            <AntDesign
+              style={{paddingHorizontal: wp(1.5)}}
+              name="shoppingcart"
+              color={'black'}
+              size={26}
+            />
             <Text
               style={{
                 fontSize: 11,
                 position: 'absolute',
-                right: -8,
+                right: -5,
                 width: 17,
                 height: 17,
                 marginTop: -4,

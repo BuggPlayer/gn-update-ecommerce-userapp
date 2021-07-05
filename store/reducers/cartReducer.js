@@ -8,8 +8,7 @@ import {
 import {banner, categories, products} from '../../Data/Data';
 
 const instailState = {
-  items: products,
-  categories,
+  
   banner,
   addedItems: [],
   total: 0,
@@ -23,6 +22,7 @@ export const cartReducer = (state = instailState, action) => {
     let existed_item = state.addedItems.find(item => action.id === item.id);
     if (existed_item) {
       addedItem.quantity += 1;
+
       return {
         ...state,
         total: state.total + addedItem.price,

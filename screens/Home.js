@@ -22,18 +22,10 @@ import Search from '../components/Search';
 import Header from '../navigation/Header/Header';
 import {useSelector, useDispatch} from 'react-redux';
 import {Getproducts, GetCategory} from '../store/actions/ProductAction';
+import {Color} from '../assets/Color';
 
 const Home = props => {
-  //const [add, setadd] = React.useState(false);
-  //const DATA = [1, 2, 3, 4, 5];
-  // console.log("navigation home", props.navigation);
-  const banner = useSelector(state => state.product.banner);
-  const categories = useSelector(state => state.product.categories);
-  const product = useSelector(state => state.product.items);
-
-  // console.log('categoris', categories);
-  // console.log('banner', banner);
-  // console.log('product', product);
+  const banner = useSelector(state => state.products.banner);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -43,7 +35,7 @@ const Home = props => {
 
   const state = useSelector(state => state.products.items);
   const category = useSelector(state => state.products.category);
-  // console.log('product', state);
+  console.log('product', state);
   // console.log('category', category);
 
   const categoryHandler = item => {
@@ -53,10 +45,8 @@ const Home = props => {
   };
 
   return (
-    <ScrollView>
-      <ImageBackground
-        source={require('../assets/Image/blank.png')}
-        style={{flex: 1}}>
+    <ScrollView style={{backgroundColor: Color.backgroundColor}}>
+      <View style={{}}>
         <Header title="Home" navigation={props.navigation} />
         <View style={{}}>
           <Search />
@@ -69,7 +59,13 @@ const Home = props => {
             }}
           />
 
-          <Text style={{fontSize: hp('3'), marginHorizontal: wp(3)}}>
+          <Text
+            style={{
+              fontSize: hp('3%'),
+              fontWeight: 'bold',
+              marginVertical: hp(1),
+              marginHorizontal: hp(2),
+            }}>
             Explor by category
           </Text>
 
@@ -89,11 +85,12 @@ const Home = props => {
           />
           <View style={{flexDirection: 'row'}}>
             <Text
-              style={{
-                fontSize: hp('3%'),
-                fontWeight: 'bold',
-                margin: hp('1.5%'),
-              }}>
+                style={{
+                  fontSize: hp('3%'),
+                  fontWeight: 'bold',
+                  marginVertical: hp(1),
+                  marginHorizontal: hp(1),
+                }}>
               Best selling Products
             </Text>
             <TouchableOpacity style={{marginHorizontal: hp('9%')}}>
@@ -124,7 +121,7 @@ const Home = props => {
             }}
           />
         </View>
-      </ImageBackground>
+      </View>
     </ScrollView>
   );
 };

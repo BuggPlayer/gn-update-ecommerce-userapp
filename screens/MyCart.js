@@ -1,17 +1,18 @@
-import React from "react";
-import { ScrollView } from "react-native";
-import CartItem from "../components/CartItem";
+import React from 'react';
+import {ScrollView, View} from 'react-native';
+import CartItem from '../components/CartItem';
 
-import Totalcal from "../components/Totalcal";
-import BottomButton from "../components/UI/BottomButton";
+import Totalcal from '../components/Totalcal';
+import BottomButton from '../components/UI/BottomButton';
 
-const MyCart = (props) => {
+const MyCart = props => {
   return (
-    <ScrollView style={{  }}>
+    <View style={{flex: 1, justifyContent: 'space-between'}}>
       <Totalcal />
       <CartItem />
+
       <BottomButton navigation={props.navigation} />
-    </ScrollView>
+    </View>
   );
 };
 

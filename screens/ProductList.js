@@ -6,15 +6,23 @@ import {
 } from 'react-native-responsive-screen';
 
 import BookmarkIcon from 'react-native-vector-icons/Ionicons';
-import {Color} from '../../assets/constant/Constant';
 
+import PButton from '../components/UI/PButton';
+import {useDispatch} from 'react-redux';
+
+import {addToCart, addQty, subtractQty} from '../store/actions/cartAction';
+import { Color } from '../assets/Color';
 const ProductList = props => {
   console.log('prp', props.item);
+
+  const dispatch = useDispatch();
+  const [isViable, setisViable] = React.useState(false);
+  const [quantity, setQuantity] = React.useState(0);
   return (
     <View>
       <View
         style={{
-          backgroundColor: '#c5ed8a',
+          backgroundColor:Color.cardColor ,
           // height: 100,
           paddingHorizontal: wp(4),
           borderRadius: 10,
@@ -27,46 +35,14 @@ const ProductList = props => {
             paddingVertical: hp(1.5),
           }}>
           <View style={{}}>
-            {/* <Text
-              style={{fontSize: hp(2.7), fontWeight: 'bold', color: 'white'}}>
-              Full-Stack Designer
-            </Text> */}
-
-            {/* <View
-              style={{
-                flexDirection: 'row',
-                marginVertical: hp(1.5),
-                alignItems: 'center',
-              }}>
-              <Text style={{fontSize: hp(2.2), color: 'white'}}>
-                $ 30k-70k/years
-              </Text>
-              <View
-                style={{
-                  // borderWidth: 2,
-                  marginHorizontal: wp(3),
-                  backgroundColor: 'gray',
-
-                  borderRadius: 8,
-                  height: hp(5),
-                  justifyContent: 'center',
-                }}>
-                <Text
-                  style={{
-                    // paddingVertical: hp(),
-                    paddingHorizontal: wp(4),
-                    color: 'white',
-                  }}>
-                  Full time
-                </Text>
-              </View>
-            </View> */}
+           
 
             <View style={{flexDirection: 'row', marginVertical: hp(1)}}>
               <TouchableOpacity
-                onPress={() => props.navigation.navigate('Details')}>
+                // onPress={() => props.navigation.navigate('Details')}
+                >
                 <Image
-                  style={{height: hp(12), width: wp('20')}}
+                  style={{height: hp(12), width: wp('20') , resizeMode:"contain"}}
                   source={{uri: props.item.image}}
                 />
               </TouchableOpacity>
@@ -116,18 +92,65 @@ const ProductList = props => {
               size={30}
               color={'black'}
             />
-            <View
-              style={{
-                borderColor: 'black',
-                borderRadius: 100,
-                backgroundColor: 'white',
-                height: hp(4),
-                width: hp(4),
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
-              <Text style={{fontSize: hp(2.5), color: 'black'}}>+</Text>
-            </View>
+            {props.item.countInStock > 0 ? (
+              <TouchableOpacity
+                onPress={() => {
+                  setisViable(pre => !pre);
+                  dispatch(addToCart(props.item.id));
+                }}
+                style={{
+                  flexDirection: 'row',
+                  borderColor: 'black',
+                  backgroundColor:Color.buttonColor,
+                  borderRadius: 100,
+                 
+                  height: hp(4),
+                  width: hp(4),
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}>
+                <Text style={{fontSize: hp(2), color: 'black'}}>+</Text>
+              </TouchableOpacity>
+            ) : (
+              <View>
+                <Text style={{color: 'red'}}>OUT OF STOCK</Text>
+              </View>
+            )}
+            {isViable === true && (
+              <View style={{flexDirection: 'row'}}>
+                <PButton
+                  onpress={() => {
+                    dispatch(addQty(props.item.id));
+                    setQuantity(props.item.quantity);
+                    // quantity;
+                  }}>
+                  +
+                </PButton>
+                <View
+                  style={{
+                    backgroundColor:Color.buttonColor,
+                    marginHorizontal: hp(1),
+
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    width: hp(4),
+                    height: hp(4),
+                    borderRadius: hp('50%'),
+                  }}>
+                  <Text style={{fontSize: hp('2.5%')}}>{quantity}</Text>
+                </View>
+                <PButton
+                  onpress={() => {
+                    dispatch(subtractQty(props.item.id));
+                    setQuantity(props.item.quantity);
+                    if (quantity === 1) {
+                      setisViable(false);
+                    }
+                  }}>
+                  -
+                </PButton>
+              </View>
+            )}
           </View>
         </View>
       </View>

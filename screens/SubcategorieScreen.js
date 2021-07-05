@@ -22,6 +22,7 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { Color } from '../assets/Color';
 
 ///////////////////////////////
 
@@ -47,7 +48,7 @@ const SubcategorieScreen = props => {
   const filtercategory = Object.values(categoryproducts);
   // console.log('categoryproducts', array);
   return (
-    <View style={{backgroundColor: 'gray', flex: 1}}>
+    <View style={{backgroundColor:Color.backgroundColor, flex: 1}}>
       <ScrollView>
         <ImageBackground
           source={{
@@ -58,11 +59,11 @@ const SubcategorieScreen = props => {
 
             height: hp('35'),
             width: wp('100'),
-            // backgroundColor:"green"
+   
           }}>
           <View
             style={{
-              // backgroundColor: 'green',
+          
               justifyContent: 'space-between',
               height: hp('40'),
             }}>
@@ -75,7 +76,7 @@ const SubcategorieScreen = props => {
               <TouchableOpacity
                 onPress={() => props?.navigation?.goBack()}
                 style={{
-                  backgroundColor: 'gray',
+                  backgroundColor: Color.buttonColor,
                   width: hp('5%'),
                   height: hp('5%'),
                   borderRadius: wp('50%'),
@@ -115,11 +116,11 @@ const SubcategorieScreen = props => {
             marginHorizontal: wp('4'),
             marginVertical: hp('2'),
           }}>
-          <Text style={{fontSize: hp('3'), color: 'white', fontWeight: 'bold'}}>
+          <Text style={{fontSize: hp('3'), color: 'black', fontWeight: 'bold'}}>
             Select A {props.route.params.id.name}
           </Text>
         </View>
-        <View style={{marginVertical: hp('2'), marginHorizontal: wp('4')}}>
+        <View style={{marginHorizontal: wp('3')}}>
           <FlatList
             data={filtercategory}
             renderItem={({item}) => {

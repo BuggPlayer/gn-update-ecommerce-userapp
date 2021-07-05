@@ -10,12 +10,9 @@ import {
 import {useDispatch, useSelector} from 'react-redux';
 
 const TopSlider = props => {
-  //console.log("props" , props.item.image);
-  // const banner = useSelector((state) => state.product.items);
-  // console.log("banner" , banner);
-  // const dispatch = useDispatch();
+
   return (
-    <View>
+    <View  style={{ }}>
       <View style={{alignItems: 'center', padding: wp(2)}}>
         <Image
           source={require('../assets/Image/Onboared1.png')}

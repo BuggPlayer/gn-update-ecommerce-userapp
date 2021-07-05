@@ -1,10 +1,12 @@
-export const ADD_TO_CART = 'ADD_TO_CART';
-export const REMOVE_CART = 'REMOVE_CART';
-export const SUBTRACT_QTY = 'SUBTRACT_QTY';
-export const ADD_QTY = 'ADD_QTY';
+// export const ADD_TO_CART = 'ADD_TO_CART';
+// export const REMOVE_CART = 'REMOVE_CART';
+// export const SUBTRACT_QTY = 'SUBTRACT_QTY';
+// export const ADD_QTY = 'ADD_QTY';
+
+import {ADD_TO_CART, REMOVE_CART, SUBTRACT_QTY, ADD_QTY} from '../Type';
 
 export const addToCart = id => {
-  console.log('comming');
+  console.log('comming', id);
   return {
     type: ADD_TO_CART,
     id,
@@ -33,4 +35,3 @@ export const addQty = id => {
 };
 
 export const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
-

@@ -5,68 +5,54 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
+import { Color } from '../assets/Color';
 
 const CategoryComponent = props => {
-  console.log("cc", props.item);
-
-  
   return (
     <TouchableOpacity
-      style={{paddingHorizontal: wp(2), paddingVertical: hp(1)}}
-      // onPress={() =>
-      //   props.navigation.navigate("Subcat", {
-      //     subcategory: props.items.subcategory,
-      //   })
-      // }
-
-      // onPress={() =>
-      //   props.navigation.navigate(
-      //     props.screenname,
-      //     props.screenname === 'Subcat'
-      //       ? {
-      //           subcategory: props.items.subcategory,
-      //         }
-      //       : {subcategory: props.items.title},
-      //   )
-      // }
+      style={{
+        paddingHorizontal: wp(2),
+        paddingVertical: hp(1),
+      
+      }}
       onPress={props.onpress}>
       <View
         style={{
-          padding: hp('1%'),
+          backgroundColor: Color.cardColor,
+          // padding: hp('1%'),
           //borderRadius: 5,
-          width: wp('46%'),
+          // paddingHorizontal:wp),
+          width: wp('44%'),
           alignItems: 'center',
-          elevation: hp('.1%'),
-          borderRadius: hp('1%'),
-          ...props.style,
+          // elevation: hp('.1%'),
+          borderRadius: hp('.5'),
+          paddingVertical: hp(1),
         }}>
         <Image
           source={{
             uri: props.items.image,
           }}
           style={{
-            height: hp('20%'),
-            width: wp('38%'),
+            height: hp('16%'),
+            width: wp('40%'),
             // borderRadius: hp('2%'),
-            backgroundColor: 'white',
-            resizeMode:"contain",
-            borderRadius:5,
-            ...props.style,
-     
+
+            resizeMode: 'center',
+            borderRadius: 50,
+
+            // ...props.style,
+
             // position:"relative"
           }}
         />
 
-        <View>
-          <Text
-            style={{
-              fontSize: hp(2),
-              fontWeight: 'bold',
-              marginVertical: hp(1),
-            }}>
-            {props.items.name}
-          </Text>
-        </View>
+        <Text
+          style={{
+            fontSize: hp(2),
+            fontWeight: 'bold',
+          }}>
+          {props.items.name}
+        </Text>
       </View>
     </TouchableOpacity>
   );
