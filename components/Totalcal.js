@@ -1,11 +1,14 @@
 import React from 'react';
 import {Text, View} from 'react-native';
-import {
-  heightPercentageToDP,
-  widthPercentageToDP,
-} from 'react-native-responsive-screen';
+
 /// redux
 import {useSelector} from 'react-redux';
+import {Color} from '../assets/Color';
+
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 const Totalcal = props => {
   const totalPrice = useSelector(state => state.products.total);
@@ -13,39 +16,45 @@ const Totalcal = props => {
   return (
     <View
       style={{
-        flex: 1,
-        backgroundColor: 'white',
-        margin: heightPercentageToDP('3%'),
-        marginHorizontal: 10,
-        marginVertical: 50,
-        padding: 25,
+        // flex: 1,
+        backgroundColor: Color.cardColor,
+
         borderRadius: 10,
-        borderWidth: 0.5,
+        // borderWidth: 0.5,
+        paddingHorizontal: wp(3),
+        borderColor: 'red',
+        marginVertical: hp(3),
+        paddingVertical: hp(2),
+        // marginHorizontal: wp(2),
       }}>
       <View
         style={{
           flexDirection: 'row',
           justifyContent: 'space-between',
+          paddingHorizontal:wp(2)
           //   padding: 3,
         }}>
-        <Text>Subtotal</Text>
-        <Text>{totalPrice}</Text>
+        <Text style={{fontSize: hp(2)}}>Subtotal</Text>
+        <Text   style={{ fontSize:hp(2)}} >{totalPrice}</Text>
       </View>
       <View
         style={{
           flexDirection: 'row',
           justifyContent: 'space-between',
+          paddingVertical: hp(1),
+          paddingHorizontal:wp(2)
         }}>
-        <Text>Total Product discount </Text>
-        <Text style={{color: 'green'}}>- 100.00</Text>
+        <Text style={{fontSize: hp(2)}}>Total Product discount </Text>
+        <Text style={{color: 'green' , fontSize:hp(2)}}>- 100.00</Text>
       </View>
       <View
         style={{
           flexDirection: 'row',
           justifyContent: 'space-between',
-          paddingVertical: heightPercentageToDP('7%'),
+          marginVertical: hp(1),
+          paddingHorizontal:wp(2)
         }}>
-        <Text>Delivery Charge</Text>
+        <Text style={{ fontSize:hp(2)}}  >Delivery Charge</Text>
         <Text style={{color: 'red', fontWeight: 'bold', fontSize: 16}}>
           Free
         </Text>

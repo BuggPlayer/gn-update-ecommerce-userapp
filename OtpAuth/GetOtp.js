@@ -1,10 +1,10 @@
-import React from "react";
+import React, {useState} from 'react';
 
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
-} from "react-native-responsive-screen";
-import CountDown from "react-native-countdown-component";
+} from 'react-native-responsive-screen';
+import CountDown from 'react-native-countdown-component';
 import {
   View,
   Image,
@@ -12,12 +12,27 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-} from "react-native";
-import { Button } from "react-native-elements";
+  StyleSheet,
+} from 'react-native';
+import {Button} from 'react-native-elements';
 //import { HomeStack } from "./HomeStack";
-import Home from "../screens/Home";
+import Home from '../screens/Home';
 
-const GetOtp = (props) => {
+import {
+  CodeField,
+  Cursor,
+  useBlurOnFulfill,
+  useClearByFocusCell,
+} from 'react-native-confirmation-code-field';
+
+const GetOtp = () => {
+  const [value, setValue] = useState('');
+  const ref = useBlurOnFulfill({value, cellCount: CELL_COUNT});
+  const [props, getCellOnLayoutHandler] = useClearByFocusCell({
+    value,
+    setValue,
+  });
+  console.log('value', value);
   const [counter, SetCounter] = React.useState(180);
   const [disabled, setDisabled] = React.useState(false);
   const [home, sethome] = React.useState(false);
@@ -44,153 +59,79 @@ const GetOtp = (props) => {
       fivedigit === null ||
       sixdigit === null
     ) {
-      alert("filled all code");
+      alert('filled all code');
     } else {
       try {
         const con = await props.confirm.confirm(code);
         if (con) {
           sethome(true);
         } else {
-          alert("wrong OTP");
+          alert('wrong OTP');
         }
       } catch (error) {
-        alert("Invalid Code");
+        alert('Invalid Code');
       }
     }
   };
+  const CELL_COUNT = 6;
   return (
     <ImageBackground
-      source={require("../OtpAuth/image/authScreen.png")}
-      style={{  flex: 1 }}
-    >
+      source={require('../OtpAuth/image/authScreen.png')}
+      style={{flex: 1}}>
       {!home && (
         <View>
-          <View style={{  justifyContent:"center" , marginTop:240}}>
+          <View style={{justifyContent: 'center', marginTop: 240}}>
             {/* <Image
               source={require("../OtpAuth/image/authScreen.png")}
               style={{ height: 150, width: 150, marginHorizontal: hp("10%") }}
             /> */}
             <Text
               style={{
-                fontSize: hp("3%"),
-                alignSelf: "center",
-                fontWeight: "bold",
-                margin: hp("2%"),
-              }}
-            >
+                fontSize: hp('3%'),
+                alignSelf: 'center',
+                fontWeight: 'bold',
+                margin: hp('2%'),
+              }}>
               OTP Verification
             </Text>
-            <View style={{ flexDirection: "row", alignSelf: "center" }}>
-              <Text style={{ color: "gray" }}>Entert the OTP sent </Text>
-              <Text style={{ fontWeight: "bold" }}> {props.phone}</Text>
+            <View style={{flexDirection: 'row', alignSelf: 'center'}}>
+              <Text style={{color: 'gray'}}>Entert the OTP sent </Text>
+              <Text style={{fontWeight: 'bold'}}> {props.phone}</Text>
             </View>
 
             <View
               style={{
-                alignSelf: "center",
-                marginVertical: hp("6%"),
-                flexDirection: "row",
-                justifyContent: "space-between",
-              }}
-            >
-              <TextInput
-                placeholder=""
-                maxLength={1}
-                placeholderTextColor="black"
-                onChangeText={(digit) => setfdigit(digit)}
-                keyboardType="phone-pad"
-                style={{
-                  borderBottomWidth: 1,
-                  alignItems: "center",
-                  justifyContent: "center",
-                  alignSelf: "center",
-                  height: hp("8%"),
-                  width: wp("10%"),
-                  padding: hp("1%"),
-                  margin: hp("1%"),
-                }}
-              />
-
-              <TextInput
-                placeholder=""
-                maxLength={1}
-                onChangeText={(digit) => setsigit(digit)}
-                placeholderTextColor="black"
-                keyboardType="phone-pad"
-                style={{
-                  borderBottomWidth: 1,
-                  height: hp("8%"),
-                  width: wp("10%"),
-                  padding: hp("1%"),
-                  margin: hp("1%"),
-                }}
-              />
-              <TextInput
-                placeholder=""
-                maxLength={1}
-                onChangeText={(digit) => settdigit(digit)}
-                placeholderTextColor="black"
-                keyboardType="phone-pad"
-                style={{
-                  borderBottomWidth: 1,
-                  height: hp("8%"),
-                  width: wp("10%"),
-                  padding: hp("1%"),
-                  margin: hp("1%"),
-                }}
-              />
-              <TextInput
-                placeholder=""
-                maxLength={1}
-                onChangeText={(digit) => setfourdigit(digit)}
-                placeholderTextColor="black"
-                keyboardType="phone-pad"
-                style={{
-                  borderBottomWidth: 1,
-                  height: hp("8%"),
-                  width: wp("10%"),
-                  padding: hp("1%"),
-                  margin: hp("1%"),
-                }}
-              />
-              <TextInput
-                maxLength={1}
-                placeholder=""
-                onChangeText={(digit) => setfivedigit(digit)}
-                placeholderTextColor="black"
-                keyboardType="phone-pad"
-                style={{
-                  borderBottomWidth: 1,
-                  height: hp("8%"),
-                  width: wp("10%"),
-                  padding: hp("1%"),
-                  margin: hp("1%"),
-                }}
-              />
-              <TextInput
-                maxLength={1}
-                placeholder=""
-                onChangeText={(digit) => setsixdigit(digit)}
-                placeholderTextColor="black"
-                keyboardType="phone-pad"
-                style={{
-                  justifyContent: "center",
-                  borderBottomWidth: 1,
-                  height: hp("8%"),
-                  width: wp("10%"),
-                  padding: hp("1%"),
-                  margin: hp("1%"),
-                }}
+                alignSelf: 'center',
+                marginVertical: hp('6%'),
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+              }}>
+              <CodeField
+                ref={ref}
+                {...props}
+                value={value}
+                onChangeText={setValue}
+                cellCount={CELL_COUNT}
+                rootStyle={styles.codeFiledRoot}
+                keyboardType="number-pad"
+                textContentType="oneTimeCode"
+                renderCell={({index, symbol, isFocused}) => (
+                  <Text
+                    key={index}
+                    style={[styles.cell, isFocused && styles.focusCell]}
+                    onLayout={getCellOnLayoutHandler(index)}>
+                    {symbol || (isFocused ? <Cursor /> : null)}
+                  </Text>
+                )}
               />
             </View>
           </View>
           <View
             style={{
-              flexDirection: "row",
-              alignSelf: "center",
+              flexDirection: 'row',
+              alignSelf: 'center',
               // marginBottom: hp("2%"),
-            }}
-          >
+            }}>
             <Text>Dont receive OTP ? </Text>
 
             {!disabled && (
@@ -199,26 +140,26 @@ const GetOtp = (props) => {
                 until={counter}
                 size={15}
                 onFinish={() => setDisabled(() => true)}
-                separatorStyle={{ color: "red", marginTop: -19 }}
-                digitStyle={{ backgroundColor: "#FFF" }}
-                digitTxtStyle={{ color: "black", marginTop: -19 }}
-                timeToShow={["M", "S"]}
+                separatorStyle={{color: 'red', marginTop: -19}}
+                digitStyle={{backgroundColor: '#FFF'}}
+                digitTxtStyle={{color: 'black', marginTop: -19}}
+                timeToShow={['M', 'S']}
                 showSeparator
-                timeLabels={{ m: "", s: "" }}
+                timeLabels={{m: '', s: ''}}
               />
             )}
             {disabled && (
               <TouchableOpacity onPress={resendOTP}>
-                <Text style={{ color: "orange" }}>RESEND OTP</Text>
+                <Text style={{color: 'orange'}}>RESEND OTP</Text>
               </TouchableOpacity>
             )}
           </View>
           <Button
             onPress={verifyOtp}
             buttonStyle={{
-              backgroundColor: "#6365bf",
+              backgroundColor: '#6365bf',
               borderRadius: 10,
-              alignSelf: "center",
+              alignSelf: 'center',
               marginVertical: disabled ? 8 : -8,
               paddingHorizontal: 28,
               paddingVertical: 15,
@@ -233,3 +174,21 @@ const GetOtp = (props) => {
 };
 
 export default GetOtp;
+const styles = StyleSheet.create({
+  root: {padding: 20, minHeight: 300},
+  title: {textAlign: 'center', fontSize: 30},
+  codeFiledRoot: {marginTop: 30},
+  cell: {
+    width: 40,
+    height: 40,
+    lineHeight: 38,
+    fontSize: 24,
+    borderWidth: 2,
+    borderColor: '#00000030',
+    textAlign: 'center',
+    marginHorizontal: 5,
+  },
+  focusCell: {
+    borderColor: '#000',
+  },
+});

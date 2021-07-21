@@ -6,7 +6,6 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import {Color} from '../../assets/constant/Constant';
 
 import {ScrollView} from 'react-native';
 // import Schedule from '../../components/service/Schedule';
@@ -20,58 +19,35 @@ import Modal from 'react-native-modal';
 import moment from 'moment';
 import Slot from '../components/Slot';
 import Schedule from '../components/Schedule';
+import {Color} from '../assets/Color';
 
 const data = [
   {
     id: 1,
-    title: '08:00  AM',
-    image:
-      'https://images.vexels.com/media/users/3/148920/isolated/preview/a8016baffbce8083fcc0313f2c904e6e-red-office-chair-clipart-by-vexels.png',
+    title: 'Morning',
   },
   {
     id: 2,
-    title: '09:00  AM',
-    image:
-      'https://images.vexels.com/media/users/3/148920/isolated/preview/a8016baffbce8083fcc0313f2c904e6e-red-office-chair-clipart-by-vexels.png',
+    title: 'Afternoon',
   },
   {
     id: 3,
-    title: '10:00  AM',
-    image:
-      'https://images.vexels.com/media/users/3/148920/isolated/preview/a8016baffbce8083fcc0313f2c904e6e-red-office-chair-clipart-by-vexels.png',
-  },
-  {
-    id: 4,
-    title: '11:00  AM',
-    image:
-      'https://images.vexels.com/media/users/3/148920/isolated/preview/a8016baffbce8083fcc0313f2c904e6e-red-office-chair-clipart-by-vexels.png',
-  },
-  {
-    id: 5,
-    title: '12:00  AM',
-    image:
-      'https://images.vexels.com/media/users/3/148920/isolated/preview/a8016baffbce8083fcc0313f2c904e6e-red-office-chair-clipart-by-vexels.png',
-  },
-  {
-    id: 6,
-    title: '01:00  PM',
-    image:
-      'https://images.vexels.com/media/users/3/148920/isolated/preview/a8016baffbce8083fcc0313f2c904e6e-red-office-chair-clipart-by-vexels.png',
+    title: 'Evening',
   },
 ];
 
 const data2 = [
-  {
-    id: 1,
-    title: 'Pay Using Crypto Currency',
-  },
-  {
-    id: 2,
-    title: 'Pay Using Fiate',
-  },
+  // {
+  //   id: 1,
+  //   title: 'NA',
+  // },
+  // {
+  //   id: 2,
+  //   title: 'NA',
+  // },
   {
     id: 3,
-    title: 'Cash On Arrive',
+    title: 'Cash On Delivery',
   },
 ];
 const dataCalender = [
@@ -102,6 +78,7 @@ const getDateList = () => {
 };
 
 const ScheduleScreen = props => {
+  // console.log("chkeee" , props.navigation.navigate("Checkout"));
   console.log('props map', props?.route?.params);
   const [isActive, setIsActive] = useState(0);
 
@@ -137,7 +114,7 @@ const ScheduleScreen = props => {
   return (
     <View
       style={{
-        backgroundColor: 'gray',
+        backgroundColor: Color.backgroundColor,
         flex: 1,
         justifyContent: 'space-between',
       }}>
@@ -151,7 +128,7 @@ const ScheduleScreen = props => {
           <TouchableOpacity
             onPress={() => props?.navigation?.goBack()}
             style={{
-              backgroundColor: 'gray',
+              backgroundColor: Color.buttonColor,
               width: hp('5%'),
               height: hp('5%'),
               borderRadius: wp('50%'),
@@ -177,12 +154,13 @@ const ScheduleScreen = props => {
               flexDirection: 'row',
               justifyContent: 'space-between',
               alignItems: 'center',
+              marginVertical: hp(1),
             }}>
             <Text
               style={{
                 fontSize: 20,
                 fontFamily: 'Roboto-Medium',
-                color: 'white',
+                color: Color.textcolor,
                 fontWeight: 'bold',
                 paddingVertical: hp('2'),
               }}>
@@ -191,7 +169,7 @@ const ScheduleScreen = props => {
             <TouchableOpacity
               onPress={() => props.navigation.navigate('GoogleMap')}
               style={{
-                backgroundColor: '#b1f090',
+                backgroundColor: Color.buttonColor,
                 width: wp('25'),
                 height: hp('6'),
                 borderRadius: 5,
@@ -219,7 +197,7 @@ const ScheduleScreen = props => {
             }}>
             <View
               style={{
-                backgroundColor: '#b1f090',
+                backgroundColor: Color.buttonColor,
                 width: wp('25'),
                 height: hp('6'),
                 borderRadius: 5,
@@ -241,11 +219,11 @@ const ScheduleScreen = props => {
               style={{
                 fontSize: 14,
                 fontFamily: 'Roboto-Regular',
-                color: 'white',
+                color: Color.textcolor,
                 paddingVertical: hp('2'),
-                marginHorizontal: wp('4'),
+                marginHorizontal: wp('2'),
               }}>
-              {props?.route?.params?.address}
+              {props?.route?.params ? props?.route?.params?.address : 'NO ADD'}
             </Text>
           </View>
           <View
@@ -260,7 +238,7 @@ const ScheduleScreen = props => {
               style={{
                 fontSize: 20,
                 fontFamily: 'Roboto-Medium',
-                color: 'white',
+                color: Color.textcolor,
               }}>
               Schedule
             </Text>
@@ -288,31 +266,78 @@ const ScheduleScreen = props => {
               );
             }}
           />
+          <View style={{marginVertical: hp(3)}}>
+            <Text
+              style={{
+                fontSize: 20,
+                fontFamily: 'Roboto-Medium',
+                color: Color.textcolor,
+              }}>
+              Select Available Slot
+            </Text>
+            <View style={{marginVertical: hp(1)}}>
+              <FlatList
+                numColumns={3}
+                data={data}
+                renderItem={item => (
+                  <TouchableOpacity
+                    onPress={() => selectHandler(item.item.id)}
+                    style={{
+                      backgroundColor:
+                        item.item.id === isActive
+                          ? Color.headerColor
+                          : Color.buttonColor,
 
-          <View style={{}}>
-            <FlatList
-              style={{marginVertical: hp('1')}}
-              numColumns={2}
-              data={data}
-              renderItem={item => (
-                <TouchableOpacity
-                  onPress={() => selectHandler(item.item.id)}
-                  style={{
-                    backgroundColor:
-                      item.item.id === isActive ? 'orange' : '#b1f090',
+                      width: wp('28'),
+                      height: hp('8'),
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      borderRadius: 10,
+                      marginVertical: hp('.6'),
+                      marginHorizontal: wp('1.5'),
+                    }}>
+                    <Slot item={item} />
+                  </TouchableOpacity>
+                )}
+              />
+            </View>
+          </View>
 
-                    width: wp('43'),
-                    height: hp('8'),
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    borderRadius: 10,
-                    marginVertical: hp('.6'),
-                    marginHorizontal: wp('1.5'),
-                  }}>
-                  <Slot item={item} />
-                </TouchableOpacity>
-              )}
-            />
+          <View style={{marginVertical: hp(1)}}>
+            <Text
+              style={{
+                fontSize: 20,
+                fontFamily: 'Roboto-Medium',
+                color: Color.textcolor,
+              }}>
+              Select Payment Method
+            </Text>
+            <View style={{marginVertical: hp(1)}}>
+              <FlatList
+                numColumns={3}
+                data={data2}
+                renderItem={item => (
+                  <TouchableOpacity
+                    onPress={() => selectHandler(item.item.id)}
+                    style={{
+                      backgroundColor:
+                        item.item.id === isActive
+                          ? Color.headerColor
+                          : Color.buttonColor,
+
+                      width: wp('37'),
+                      height: hp('8'),
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      borderRadius: 10,
+                      marginVertical: hp('.6'),
+                      marginHorizontal: wp('1.5'),
+                    }}>
+                    <Slot item={item} />
+                  </TouchableOpacity>
+                )}
+              />
+            </View>
           </View>
         </View>
       </ScrollView>
@@ -328,10 +353,10 @@ const ScheduleScreen = props => {
           style={{
             justifyContent: 'center',
             alignItems: 'center',
-            backgroundColor: 'yellow',
-            width: wp('90%'),
+            backgroundColor: Color.buttonColor,
+            width: wp('85%'),
             borderRadius: 5,
-            height: hp('6.5%'),
+            height: hp('7%'),
           }}>
           <Text
             style={{

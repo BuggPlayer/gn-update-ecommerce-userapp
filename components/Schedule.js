@@ -5,12 +5,13 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import {Color} from '../../assets/constant/Constant';
+
 import moment from 'moment';
 import BellIcon from 'react-native-vector-icons/Fontisto';
+import {Color} from '../assets/Color';
 
-const Schedule = (props) => {
-  console.log('proos', props);
+const Schedule = props => {
+  // console.log('proos', props);
   // const [isVisible, setisVisible] = useState(false);
 
   const selectDatahandler = () => {
@@ -23,7 +24,9 @@ const Schedule = (props) => {
         onPress={selectDatahandler}
         style={{
           backgroundColor:
-            props.item.id === props.selected ? 'yellow' : "#b1f090",
+            props.item.id === props.selected
+              ? Color.headerColor
+              : Color.buttonColor,
           padding: 10,
           margin: 10,
           width: wp('13'),
@@ -54,7 +57,7 @@ const Schedule = (props) => {
           }}>
           {props.item.date}
         </Text>
-        <Text style={{color: 'gray'}}>{props.item.day}</Text>
+        <Text style={{color: Color.textcolor}}>{props.item.day}</Text>
         {props.item.id === props.selected && (
           <BellIcon
             name="bell-alt"

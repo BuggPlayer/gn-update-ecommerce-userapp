@@ -18,8 +18,10 @@ import {
 //const {firebase, auth} = firebaseConfig();
 import {Button} from 'react-native-elements';
 import Getotp from './GetOtp';
+import {Color} from '../assets/Color';
 
-const OtpScreen = (props) => {
+const OtpScreen = props => {
+  // console.log('props', props.navigation);
   const [phone, setPhone] = React.useState('');
   const [confirm, setConfirm] = React.useState(null);
 
@@ -48,7 +50,7 @@ const OtpScreen = (props) => {
     if (phone.length === 13) {
       const confirmation = await auth()
         .signInWithPhoneNumber(phone)
-        .catch((err) => console.log(err));
+        .catch(err => console.log(err));
 
       if (confirmation) {
         setConfirm(confirmation);
@@ -92,10 +94,32 @@ const OtpScreen = (props) => {
               </Text>
 
               <View style={{alignSelf: 'center', marginVertical: hp('6%')}}>
-                <Text style={{color: 'gray', fontSize: hp('3%')}}>
+                {/* <Text style={{color: 'gray', fontSize: hp('3%')}}>
                   Enter Mobile Number
-                </Text>
+                </Text> */}
+
                 <TextInput
+                  placeholder="Please valid phone number"
+                  placeholderTextColor={'#3E3D46'}
+                  keyboardType="phone-pad"
+                  maxLength={256}
+                  autoCapitalize="none"
+                  // onChangeText={txt => {
+                  //   setEmail(txt), _emailvalidate(txt);
+                  // }}
+                  onChangeText={phone => setPhone(phone)}
+                  style={{
+                    backgroundColor: Color.headerColor,
+                    borderRadius: 5,
+                    width: wp('60%'),
+                    height: hp('7.5%'),
+                    color: '#000',
+                    fontSize: hp(2.2),
+                    // fontFamily: 'Roboto-Regular',
+                    paddingHorizontal: wp('3%'),
+                  }}
+                />
+                {/* <TextInput
 
                   onChangeText={(phone) => setPhone(phone)}
                   value={phone}
@@ -104,10 +128,10 @@ const OtpScreen = (props) => {
                   placeholderTextColor="black"
                   keyboardType="phone-pad"
                   style={{borderBottomWidth: 1, textAlign: 'center'}}
-                />
+                /> */}
               </View>
               <Button
-                onPress={getOtp}
+                onPress={() => props.navigation.navigate('getOtp')}
                 buttonStyle={{
                   backgroundColor: '#6365bf',
                   borderRadius: 16,
@@ -122,9 +146,9 @@ const OtpScreen = (props) => {
           </ImageBackground>
         </TouchableWithoutFeedback>
       )}
-      {confirm !== null && (
+      {/* {confirm !== null && (
         <Getotp phone={phone} confirm={confirm} getOtp={getOtp} />
-      )}
+      )} */}
     </>
   );
 };

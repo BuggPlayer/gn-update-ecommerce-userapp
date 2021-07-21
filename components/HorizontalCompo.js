@@ -22,7 +22,7 @@ import {addToCart, subtractQty, addQty} from '../store/actions/cartAction';
 
 /// product  cart action
 import * as productaction from '../store/actions/ProductAction';
-import { Color } from '../assets/Color';
+import {Color} from '../assets/Color';
 const HorizontalCompo = props => {
   const Qty = useSelector(state => state.products.addedItems);
   console.log('qty', Qty);
@@ -36,14 +36,13 @@ const HorizontalCompo = props => {
   return (
     <View
       style={{
-     
         marginVertical: hp(1),
         marginHorizontal: wp(2),
       }}>
       <View
         style={{
           // padding: 10,
-          backgroundColor:Color.cardColor,
+          backgroundColor: Color.cardColor,
           paddingHorizontal: wp(3),
           paddingVertical: hp(2),
           width: wp('55%'),
@@ -53,13 +52,13 @@ const HorizontalCompo = props => {
           // elevation: 4,
         }}>
         <TouchableOpacity
-          // onPress={() =>
-          //   props.navigation.navigate('Details', {
-          //     items: props.items,
-          //     quantity: quantity,
-          //   })
-          // }
-          >
+        // onPress={() =>
+        //   props.navigation.navigate('Details', {
+        //     items: props.items,
+        //     quantity: quantity,
+        //   })
+        // }
+        >
           <Image
             source={{
               uri: props.items.image,
@@ -69,7 +68,7 @@ const HorizontalCompo = props => {
               //width: wp("40%"),
               borderRadius: hp('2%'),
               position: 'relative',
-              resizeMode:"stretch",
+              resizeMode: 'stretch',
               // backgroundColor:"green"
             }}
           />
@@ -97,13 +96,11 @@ const HorizontalCompo = props => {
             }}>
             {props.items.brand}
           </Text>
-          <Text
-            style={{fontSize: hp(2), fontWeight: 'bold', }}>
+          <Text style={{fontSize: hp(2), fontWeight: 'bold'}}>
             {props.items.name}
           </Text>
 
-
-          <View style={{flexDirection: 'row', marginVertical: hp(.5)}}>
+          <View style={{flexDirection: 'row', marginVertical: hp(0.5)}}>
             <Text style={{fontSize: 18, color: '#000', fontWeight: 'bold'}}>
               ₹ {props.items.price}
             </Text>
@@ -113,17 +110,18 @@ const HorizontalCompo = props => {
           </View>
 
           <View
-            style={{
-              // marginHorizontal: wp('1%'),
-              // flexDirection: 'row',
-              // //  margin: hp("1%"),
-
-              // // backgroundColor: '#FFF',
-              // width: wp('22%'),
-              // borderRadius: hp('1%'),
-              // paddingVertical: hp('.5%'),
-              // paddingHorizontal: wp('1%'),
-            }}>
+            style={
+              {
+                // marginHorizontal: wp('1%'),
+                // flexDirection: 'row',
+                // //  margin: hp("1%"),
+                // // backgroundColor: '#FFF',
+                // width: wp('22%'),
+                // borderRadius: hp('1%'),
+                // paddingVertical: hp('.5%'),
+                // paddingHorizontal: wp('1%'),
+              }
+            }>
             <TouchableOpacity
               style={{
                 flexDirection: 'row',
@@ -174,18 +172,23 @@ const HorizontalCompo = props => {
           )} */}
 
           {Qty.filter(items => items.id === props.items.id).length > 0 && (
-            <View style={{flexDirection: 'row'}}>
+            <View
+              style={{
+                flexDirection: 'row',
+                marginVertical: hp(2),
+                // backgroundColor: 'red',
+              }}>
               <PButton
                 onpress={() => {
                   dispatch(addQty(props.items.id));
                   setQuantity(props.items.quantity);
-                  // quantity;
+                  quantity;
                 }}>
                 +
               </PButton>
               <View
                 style={{
-                  backgroundColor: 'green',
+                  backgroundColor: Color.buttonColor,
                   marginHorizontal: hp(1),
 
                   alignItems: 'center',
@@ -193,6 +196,7 @@ const HorizontalCompo = props => {
                   width: hp(4),
                   height: hp(4),
                   borderRadius: hp('50%'),
+                  marginHorizontal: wp(3),
                 }}>
                 <Text style={{fontSize: hp('2.5%')}}>{quantity}</Text>
               </View>

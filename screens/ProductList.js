@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, View, Image, TouchableOpacity} from 'react-native';
+import {Text, View, Image, TouchableOpacity, Button} from 'react-native';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -8,21 +8,24 @@ import {
 import BookmarkIcon from 'react-native-vector-icons/Ionicons';
 
 import PButton from '../components/UI/PButton';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 
 import {addToCart, addQty, subtractQty} from '../store/actions/cartAction';
-import { Color } from '../assets/Color';
+import {Color} from '../assets/Color';
 const ProductList = props => {
   console.log('prp', props.item);
 
   const dispatch = useDispatch();
   const [isViable, setisViable] = React.useState(false);
   const [quantity, setQuantity] = React.useState(0);
+
+  const Qty = useSelector(state => state.products.addedItems);
+  console.log('qty', Qty);
   return (
     <View>
       <View
         style={{
-          backgroundColor:Color.cardColor ,
+          backgroundColor: Color.cardColor,
           // height: 100,
           paddingHorizontal: wp(4),
           borderRadius: 10,
@@ -35,14 +38,16 @@ const ProductList = props => {
             paddingVertical: hp(1.5),
           }}>
           <View style={{}}>
-           
-
             <View style={{flexDirection: 'row', marginVertical: hp(1)}}>
               <TouchableOpacity
-                // onPress={() => props.navigation.navigate('Details')}
-                >
+              // onPress={() => props.navigation.navigate('Details')}
+              >
                 <Image
-                  style={{height: hp(12), width: wp('20') , resizeMode:"contain"}}
+                  style={{
+                    height: hp(12),
+                    width: wp('20'),
+                    resizeMode: 'contain',
+                  }}
                   source={{uri: props.item.image}}
                 />
               </TouchableOpacity>
@@ -92,7 +97,65 @@ const ProductList = props => {
               size={30}
               color={'black'}
             />
-            {props.item.countInStock > 0 ? (
+            {Qty.filter(item => item.id === props.item.id).length <= 0 && (
+              <View style={{marginTop: hp('3%')}}>
+                <Button
+                  title="ADD"
+                  color={Color.buttonColor}
+                  onPress={
+                    () => {
+                      setisViable(pre => !pre);
+                      dispatch(addToCart(props.item.id));
+                    }
+                    //setQuantity(props.items.quantity)
+                  }
+                />
+              </View>
+            )}
+
+            {Qty.filter(item => item.id === props.item.id).length > 0 && (
+              <View
+                style={{
+                  flexDirection: 'row',
+                  marginVertical: hp(2),
+                  // backgroundColor: 'red',
+                }}>
+                <PButton
+                  onpress={() => {
+                    dispatch(addQty(props.item.id));
+                    setQuantity(props.item.quantity);
+                    quantity;
+                  }}>
+                  +
+                </PButton>
+                <View
+                  style={{
+                    backgroundColor: Color.buttonColor,
+                    marginHorizontal: hp(1),
+
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    width: hp(4),
+                    height: hp(4),
+                    borderRadius: hp('50%'),
+                    marginHorizontal: wp(3),
+                  }}>
+                  <Text style={{fontSize: hp('2.5%')}}>{quantity}</Text>
+                </View>
+                <PButton
+                  onpress={() => {
+                    dispatch(subtractQty(props.item.id));
+                    setQuantity(props.item.quantity);
+                    if (quantity === 1) {
+                      setisViable(false);
+                    }
+                  }}>
+                  -
+                </PButton>
+              </View>
+            )}
+
+            {/* {props.item.countInStock > 0 ? (
               <TouchableOpacity
                 onPress={() => {
                   setisViable(pre => !pre);
@@ -101,9 +164,9 @@ const ProductList = props => {
                 style={{
                   flexDirection: 'row',
                   borderColor: 'black',
-                  backgroundColor:Color.buttonColor,
+                  backgroundColor: Color.buttonColor,
                   borderRadius: 100,
-                 
+
                   height: hp(4),
                   width: hp(4),
                   justifyContent: 'center',
@@ -115,20 +178,21 @@ const ProductList = props => {
               <View>
                 <Text style={{color: 'red'}}>OUT OF STOCK</Text>
               </View>
-            )}
-            {isViable === true && (
+            )} */}
+
+            {/* {isViable === true && (
               <View style={{flexDirection: 'row'}}>
                 <PButton
                   onpress={() => {
                     dispatch(addQty(props.item.id));
                     setQuantity(props.item.quantity);
-                    // quantity;
+                    quantity;
                   }}>
                   +
                 </PButton>
                 <View
                   style={{
-                    backgroundColor:Color.buttonColor,
+                    backgroundColor: Color.buttonColor,
                     marginHorizontal: hp(1),
 
                     alignItems: 'center',
@@ -150,7 +214,7 @@ const ProductList = props => {
                   -
                 </PButton>
               </View>
-            )}
+            )} */}
           </View>
         </View>
       </View>

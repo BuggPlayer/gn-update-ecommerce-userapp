@@ -15,18 +15,24 @@ import CheckOutScreen from '../screens/CheckOutScreen';
 import OrderDetails from '../components/OrderDetails';
 import ProductList from '../screens/ProductList';
 import ScheduleScreen from '../screens/ScheduleScreen';
+import ThankuPage from '../screens/ThankuPage';
+import SplashScreen from '../screens/SplashScreen';
+import OtpScreen from '../OtpAuth/OtpScreen';
+import OtpPhoneNo from '../OtpAuth/OtpPhoneNo';
+import GetOtp from '../OtpAuth/GetOtp';
 
 const Stack = createStackNavigator();
 
-export const OnBoaredStack = () => {
-  return (
-    <Stack.Navigator screenOptions={{headerShown: false}}>
-      <Stack.Screen name="onboared" component={OnBoaredScreens} />
-    </Stack.Navigator>
-  );
-};
+// export const OnBoaredStack = () => {
+//   return (
+//     <Stack.Navigator screenOptions={{headerShown: false}}>
 
-const Mystack = () => {
+//       <Stack.Screen name="onboared" component={OnBoaredScreens} />
+//     </Stack.Navigator>
+//   );
+// };
+
+export const Mystack = () => {
   return (
     <Stack.Navigator
       screenOptions={{
@@ -43,13 +49,28 @@ const Mystack = () => {
       <Stack.Screen name="OrderDetail" component={OrderDetails} />
       <Stack.Screen name="ProductList" component={ProductList} />
       <Stack.Screen name="Schedulescreen" component={ScheduleScreen} />
-      
+      <Stack.Screen name="Thanku" component={ThankuPage} />
     </Stack.Navigator>
   );
 };
 
-const StackNavigation = () => {
-  return <Mystack />;
+export const AuthStack = () => {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}>
+      <Stack.Screen name="splashscreen" component={SplashScreen} />
+      <Stack.Screen name="onboared" component={OnBoaredScreens} />
+      {/* <Stack.Screen name="Customername" component={C} /> */}
+      <Stack.Screen name="Otpscreen" component={OtpScreen} />
+      <Stack.Screen name="getOtp" component={GetOtp} />
+    </Stack.Navigator>
+  );
 };
 
-export default StackNavigation;
+// const StackNavigation = () => {
+//   return <Mystack />;
+// };
+
+// export default StackNavigation;

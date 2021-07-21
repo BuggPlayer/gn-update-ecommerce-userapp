@@ -6,12 +6,13 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import AntDesign from 'react-native-vector-icons/AntDesign';
+import AntDesign from 'react-native-vector-icons/MaterialIcons';
 
 //redux
 import {useDispatch, useSelector} from 'react-redux';
 
 import {addToCart, subtractQty, removeCart} from '../store/actions/cartAction';
+import {Color} from '../assets/Color';
 
 const CartItem = props => {
   const Cart = useSelector(state => state.products.addedItems);
@@ -23,19 +24,20 @@ const CartItem = props => {
     <FlatList
       data={Cart}
       renderItem={data => {
-        console.log('cart data ', data);
         return (
           <View
             style={{
-              flex: 1,
-              backgroundColor: 'white',
+              backgroundColor: Color.cardColor,
               marginHorizontal: wp(2),
               borderRadius: 2,
-              borderWidth: 0.1,
+              // borderWidth: 0.1,
+              justifyContent: 'space-between',
+              // alignItems:"center"
             }}>
             <View
               style={{
-                padding: 10,
+                paddingHorizontal: wp(3),
+                paddingVertical: hp(1.5),
                 flexDirection: 'row',
                 justifyContent: 'space-between',
               }}>
@@ -45,17 +47,24 @@ const CartItem = props => {
                   ₹{data.item.price} x {data.item.quantity}
                 </Text>
               </View>
-              <View style={{flexDirection: 'row'}}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  marginHorizontal: wp(7),
+                }}>
                 <PButton onpress={id => dispatch(addToCart(data.item.id))}>
                   +
                 </PButton>
                 <View
                   style={{
                     //  alignItems: "center",
-                    borderRadius: hp('1%'),
-                    margin: hp('1%'),
+                    // borderRadius: hp('1%'),
+                    // margin: hp('1%'),
+                    marginHorizontal: wp(2),
                   }}>
-                  <Text style={{alignSelf: 'center', fontSize: 15}}>
+                  <Text style={{alignSelf: 'center', fontSize: hp(2)}}>
                     {data.item.quantity}
                   </Text>
                 </View>
@@ -68,13 +77,17 @@ const CartItem = props => {
                   dispatch(removeCart(data.item.id));
                 }}
                 style={{
-                  padding: 5,
+                  // padding: 5,
+                  alignItems: 'center',
+                  justifyContent: 'center',
                 }}>
-                <AntDesign name="delete" color={'red'} size={25} />
+                <AntDesign name="delete" color={Color.buttonColor} size={25} />
               </TouchableOpacity>
 
               <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                <Text style={{}}>{data.item.price * data.item.quantity}</Text>
+                <Text style={{fontSize: hp(2.5)}}>
+                  {data.item.price * data.item.quantity}
+                </Text>
               </View>
             </View>
           </View>

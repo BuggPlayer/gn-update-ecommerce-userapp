@@ -26,7 +26,7 @@ const Header = ({navigation, title}) => {
         paddingHorizontal: wp(3),
         alignItems: 'center',
       }}>
-      <TouchableOpacity style={{}} onPress={() => navigation.toggleDrawer()}>
+      <TouchableOpacity style={{}} onPress={() => console.log("hhj")}>
         <Icon name="md-menu" size={25} color="black" />
       </TouchableOpacity>
       <Text style={styles.headerTitle}>{title}</Text>

@@ -5,6 +5,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
+import {Color} from '../../assets/Color';
 const BottomButton = props => {
   console.log('props', props);
   const totalPrice = useSelector(state => state.products.total);
@@ -12,16 +13,13 @@ const BottomButton = props => {
   return (
     <View
       style={{
-        backgroundColor: 'white',
-     
+        backgroundColor: Color.cardColor,
+
         flexDirection: 'row',
         justifyContent: 'space-around',
         borderRadius: 5,
-        paddingVertical: hp(2),
+        paddingVertical: hp(1),
         alignItems: 'center',
-        // height: 60,
-        // margin: 10,
-        // marginTop: 110,
       }}>
       <View style={{}}>
         <Text style={{textAlign: 'center', fontSize: 20, fontWeight: 'bold'}}>
@@ -32,9 +30,9 @@ const BottomButton = props => {
       <TouchableOpacity
         onPress={() => props.navigation.navigate('Schedulescreen')}
         style={{
-          backgroundColor: 'green',
-          height: hp(6),
-          width: wp(35),
+          backgroundColor: Color.buttonColor,
+          height: hp(7),
+          width: wp(40),
           borderRadius: 10,
         }}>
         <Text
@@ -43,7 +41,7 @@ const BottomButton = props => {
             fontWeight: 'bold',
             color: 'white',
             textAlign: 'center',
-            marginVertical: hp(1),
+            marginVertical: hp(1.4),
           }}>
           Place order
         </Text>
